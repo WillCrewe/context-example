@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import ItemCard from '../components/ItemCard'
-import { useItems } from '../context/ItemContext'
+import { ItemContext, useItems } from '../context/ItemContext'
 import { useUser } from '../context/UserContext'
 
 export default function Home() {
@@ -10,16 +10,10 @@ export default function Home() {
    */
   const { user, setUser } = useUser()
 
-  /* TODO: import your useItems context
-   * and map through all of the items
-   * to create a gallery of ItemCard components
-  */
+  const { items, setItems } = useItems()
 
   const addToCart = (itemName) => {
-    /* TODO: Write function that updates the
-     * user context object's cart 
-     * to include the added item
-    */
+    setUser(user.name, user.cart.push(itemName))
   }
 
   return (
@@ -40,11 +34,18 @@ export default function Home() {
         </Link>
         </div>
         <div class="gallery">
-          {/* TODO: Map through the items in context 
-          * to display an ItemCard with the data for each
-          */
+          {
+            items.map(item => (
+              <ItemCard
+                name = {item.name}
+                img = {item.img}
+                stock = {item.stock}
+                price = {item.price}
+                add = { addToCart }
+              >
+              </ItemCard>
+            ))
           }
-          <p>plants will go here</p>
         </div>
       </main>
     </div>

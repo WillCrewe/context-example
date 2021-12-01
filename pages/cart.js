@@ -5,6 +5,9 @@ import { useUser } from '../context/UserContext'
 export default function Checkout() {
   const { user, setUser } = useUser()
 
+
+  let totalPrice = 0
+
   return (
     <div>
       <Head>
@@ -15,11 +18,21 @@ export default function Checkout() {
         <h1>{user.name}, let's checkout!</h1>
         <p>You have {user.cart.length} items in your cart.</p>
         <div>
-          {/* TODO: Style the checkout page so the cart maps through
-            * to a component for each item in the cart
-          */}
-          <p>{JSON.stringify(user.cart)}</p>
+          {
+            user.cart.map(item => (
+              <ItemCard
+                name = {item.name}
+                img = {item.img}
+                stock = {item.stock}
+                price = {item.price}
+                add = {item.add}
+              >
+                {totalPrice+=item.price}
+              </ItemCard>
+            ))
+          }
         </div>
+      <p>Total Cart Price: ${totalPrice}</p>
       </main>
     </div>
   )

@@ -1,5 +1,6 @@
-/* TODO: style me! */
+
 export default function ItemCard({ name, img, stock, price, add }) {
+
     return <article className="card">
         <div className="img-wrapper">
             <img src={img} alt={name} />
